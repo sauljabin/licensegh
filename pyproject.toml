@@ -32,8 +32,15 @@ envlist = py37, py38, py39
 whitelist_externals = poetry
 commands =
     poetry install -q
+    poetry run black --check .
+    poetry run isort --check .
+    poetry run bandit .
+    poetry run flake8 .
     poetry run pytest tests/
 """
 
 [tool.isort]
 profile = "black"
+
+[tool.poetry.scripts]
+styles = "scripts.styles:main"

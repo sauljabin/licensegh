@@ -11,7 +11,7 @@
 Install development tools:
 
 - make sure you have `python3.7`, `python3.8`, `python3.9` aliases installed
-- intall [poetry](https://python-poetry.org/docs/#installation)
+- install [poetry](https://python-poetry.org/docs/#installation)
 
 Installing development dependencies:
 ```sh
@@ -21,4 +21,9 @@ poetry install
 Runing tests:
 ```sh
 poetry run tox -q
+```
+
+Applying code styles:
+```sh
+poetry run styles
 ```
