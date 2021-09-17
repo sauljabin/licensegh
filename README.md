@@ -10,7 +10,7 @@
 
 Install development tools:
 
-- make sure you have `python3.7`, `python3.8`, `python3.9` aliases
+- make sure you have `python3.7`, `python3.8`, `python3.9` aliases installed
 - intall [poetry](https://python-poetry.org/docs/#installation)
 
 Installing development dependencies:
