@@ -37,8 +37,8 @@ commands =
     poetry install -q
     poetry run black --check .
     poetry run isort --check .
-    poetry run bandit .
     poetry run flake8 .
+    poetry run bandit -r licensegh/
     poetry run python -m unittest
 """
 
@@ -48,3 +48,4 @@ profile = "black"
 [tool.poetry.scripts]
 styles = "scripts.styles:main"
 licensegh = "licensegh.cli:main"
+tests = "scripts.tests:main"

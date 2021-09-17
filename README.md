@@ -18,9 +18,14 @@ Installing development dependencies:
 poetry install
 ```
 
-Runing tests:
+Runing all tests:
 ```sh
 poetry run tox -q
+```
+
+Runing unit tests:
+```sh
+poetry run tests
 ```
 
 Applying code styles:
