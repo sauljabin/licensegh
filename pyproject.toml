@@ -35,11 +35,7 @@ envlist = py37, py38, py39
 whitelist_externals = poetry
 commands =
     poetry install -q
-    poetry run black --check .
-    poetry run isort --check .
-    poetry run flake8 .
-    poetry run bandit -r licensegh/
-    poetry run python -m unittest
+    poetry run python -m unittest -v
 """
 
 [tool.isort]
@@ -49,3 +45,5 @@ profile = "black"
 styles = "scripts.styles:main"
 licensegh = "licensegh.cli:main"
 tests = "scripts.tests:main"
+multi-version-tests = "scripts.tests:multi_version_tests"
+analyze = "scripts.tests:analyze"

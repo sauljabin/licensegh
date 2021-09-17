@@ -3,8 +3,12 @@ import os
 import git
 
 
-class LicenseGH:
-    pass
+class Licensegh:
+    def __init__(self):
+        self.repository = TemplatesRepository()
+
+    def init(self):
+        self.repository.init()
 
 
 class Licence:
@@ -13,7 +17,7 @@ class Licence:
 
 class TemplatesRepository:
     def __init__(self):
-        self.path = "~/licensegh/choosealicense"
+        self.path = os.path.expanduser("~/.licensegh/choosealicense")
         self.licenses_path = os.path.join(self.path, "_licenses")
         self.remote = "https://github.com/github/choosealicense.com.git"
 

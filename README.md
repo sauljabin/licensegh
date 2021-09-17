@@ -18,14 +18,19 @@ Installing development dependencies:
 poetry install
 ```
 
-Runing all tests:
+Running multi version tests (`3.7`, `3.8`, `3.9`):
 ```sh
-poetry run tox -q
+poetry run multi-version-tests
 ```
 
-Runing unit tests:
+Running unit tests:
 ```sh
 poetry run tests
+```
+
+Running code analysis:
+```sh
+poetry run analyze
 ```
 
 Applying code styles:
@@ -33,12 +38,12 @@ Applying code styles:
 poetry run styles
 ```
 
-Running using `python3`:
+Running cli using `python3`:
 ```sh
 python3 -m licensegh
 ```
 
-Running using `poetry`:
+Running cli using `poetry`:
 ```sh
 poetry run licensegh
 ```
