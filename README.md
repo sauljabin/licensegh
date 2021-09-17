@@ -27,3 +27,13 @@ Applying code styles:
 ```sh
 poetry run styles
 ```
+
+Running using `python3`:
+```sh
+python3 -m licensegh
+```
+
+Running using `poetry`:
+```sh
+poetry run licensegh
+```

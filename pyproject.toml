@@ -8,6 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
+click = "^8.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -44,3 +45,4 @@ profile = "black"
 
 [tool.poetry.scripts]
 styles = "scripts.styles:main"
+licensegh = "licensegh.cli:main"
