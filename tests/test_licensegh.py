@@ -1,5 +1,8 @@
+import unittest
+
 from licensegh import __version__
 
 
-def test_version():
-    assert __version__ == "0.1.0"
+class TestLicenseGH(unittest.TestCase):
+    def test_version(self):
+        self.assertEqual(__version__, "0.1.0")

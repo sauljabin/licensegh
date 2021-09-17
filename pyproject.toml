@@ -9,14 +9,16 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.7"
 click = "^8.0.1"
+rich = "^10.9.0"
+GitPython = "^3.1.23"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
 black = "^21.9b0"
 isort = "^5.9.3"
 bandit = "^1.7.0"
 flake8 = "^3.9.2"
 tox = "^3.24.4"
+unittest = "^0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -37,7 +39,7 @@ commands =
     poetry run isort --check .
     poetry run bandit .
     poetry run flake8 .
-    poetry run pytest tests/
+    poetry run python -m unittest
 """
 
 [tool.isort]
