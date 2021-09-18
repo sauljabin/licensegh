@@ -23,8 +23,14 @@ class TestCli(unittest.TestCase):
 
         self.cli.licensegh.print_all_licenses.assert_called_once()
 
-    def test_cli_print_license_by_id(self):
+    def test_cli_print_licenses_by_id(self):
         license_id = faker.word()
         self.cli.run(False, True, False, license_id)
 
         self.cli.licensegh.print_licenses_by_id.assert_called_once_with(license_id)
+
+    def test_cli_print_license_by_id(self):
+        license_id = faker.word()
+        self.cli.run(True, False, False, license_id)
+
+        self.cli.licensegh.print_license_by_id.assert_called_once_with(license_id)

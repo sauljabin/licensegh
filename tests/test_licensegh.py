@@ -86,6 +86,17 @@ class TestLicense(unittest.TestCase):
         self.assertEqual(self.license.name, "SIL Open Font License 1.1")
         self.assertEqual(self.license.description, "The description.")
 
+    @patch("licensegh.licensegh.Console")
+    def test_print_license_text(self, console_class_mock):
+        self.license.text = faker.text()
+
+        console_mock = MagicMock()
+        console_class_mock.return_value = console_mock
+
+        self.license.print()
+
+        console_mock.print.called_once_with(self.license.text)
+
 
 class TestLicensegh(unittest.TestCase):
     def setUp(self):
@@ -122,7 +133,7 @@ class TestLicensegh(unittest.TestCase):
             ],
         )
 
-    def test_print_all_licenses(self):
+    def test_print_licenses_by_id(self):
         license1 = License("/foo/bar/spam.txt")
         license2 = License("/foo/bar/spam-2.0.txt")
 
@@ -138,14 +149,38 @@ class TestLicensegh(unittest.TestCase):
         self.licensegh.print_licenses_by_id("spam")
 
         self.licensegh.print_licenses.assert_called_once_with(
-            [
-                license1,
-                license2,
-            ],
+            [license1, license2],
             True,
         )
 
-    def test_print_licenses_by_id(self):
+    def test_print_license_by_id(self):
+        license1 = MagicMock()
+        license1.id = "spam"
+
+        self.licensegh.licenses = [
+            License("/foo/bar/baz.txt"),
+            License("/foo/bar/eggs.txt"),
+            license1,
+            License("/foo/bar/spam-2.0.txt"),
+        ]
+
+        self.licensegh.print_license_by_id("spam")
+
+        license1.load.assert_called_once()
+        license1.print.assert_called_once()
+
+    @patch("licensegh.licensegh.Console")
+    def test_print_license_not_found(self, console_class_mock):
+        self.licensegh.licenses = []
+
+        console_mock = MagicMock()
+        console_class_mock.return_value = console_mock
+
+        self.licensegh.print_license_by_id(faker.word())
+
+        console_mock.print.called_once_with("[red]License not found[red]")
+
+    def test_print_all_licenses(self):
         self.licensegh.licenses = MagicMock()
         self.licensegh.print_licenses = MagicMock()
 

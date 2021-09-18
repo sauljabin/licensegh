@@ -26,6 +26,16 @@ class Licensegh:
     def print_all_licenses(self):
         self.print_licenses(self.licenses)
 
+    def print_license_by_id(self, license_id):
+        licenses = [license for license in self.licenses if license_id == license.id]
+
+        if len(licenses) == 0:
+            console = Console()
+            console.print("[red]License not found[red]")
+        else:
+            licenses[0].load()
+            licenses[0].print()
+
     def print_licenses_by_id(self, license_id):
         self.print_licenses(
             [
@@ -79,6 +89,17 @@ class License:
             self.description = metadata["description"].strip()
             self.name = metadata["title"].strip()
             self.text = file_parts["text"].strip()
+
+    def print(self):
+        console = Console()
+        console.print(
+            "[green]Name:[green]\t[magenta bold]{}[magenta bold]".format(self.name)
+        )
+        console.print(
+            "[green]Id:[green]\t[magenta bold]{}[magenta bold]".format(self.id)
+        )
+        console.rule()
+        console.print(self.text)
 
     def __eq__(self, o):
         return self.id == o.id
