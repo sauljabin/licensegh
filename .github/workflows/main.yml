@@ -27,6 +27,6 @@ jobs:
           pip install poetry
           poetry install
       - name: Run Analysis
-        run: poetry run analyze
+        run: poetry run python -m scripts.analyze
       - name: Run Tests
-        run: poetry run tests
+        run: poetry run python -m scripts.tests

@@ -1,11 +1,8 @@
 name: Publish Test Coverage
 
 on:
-  workflow_run:
-    workflows: ["CI"]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches: [ main ]
 
 jobs:
   build:
@@ -27,6 +24,6 @@ jobs:
           pip install poetry
           poetry install
       - name: Run Tests
-        run: poetry run tests-coverage
+        run: poetry run python -m scripts.tests-coverage
       - name: Publish Coverage
         uses: codecov/codecov-action@v2
