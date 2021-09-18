@@ -8,16 +8,16 @@ def main():
 
 
 def analyze():
-    print(">>> black")
+    print(">>> black", flush=True)
     black = subprocess.run(["poetry", "run", "black", "--check", "."])
 
-    print(">>> isort")
+    print(">>> isort", flush=True)
     isort = subprocess.run(["poetry", "run", "isort", "--check", "."])
 
-    print(">>> flake8")
+    print(">>> flake8", flush=True)
     flake8 = subprocess.run(["poetry", "run", "flake8", "."])
 
-    print(">>> bandit")
+    print(">>> bandit", flush=True)
     bandit = subprocess.run(["poetry", "run", "bandit", "-r", "licensegh/"])
 
     sys.exit(
