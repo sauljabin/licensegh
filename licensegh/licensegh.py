@@ -11,9 +11,15 @@ class Licensegh:
 
     def init(self):
         self.repository.init()
+        self.load_licenses()
+
+    def load_licenses(self):
+        for dirpath, dirnames, filenames in os.walk(self.repository.licenses_path):
+            for license_path in filenames:
+                self.licenses.append(License(os.path.join(dirpath, license_path)))
 
 
-class Licence:
+class License:
     def __init__(self, path):
         self.path = path
         self.directory, self.file_name = os.path.split(self.path)
@@ -30,8 +36,11 @@ class Licence:
             self.text = file_parts[-1].strip()
 
             yaml_data = yaml.safe_load(file_parts[-2])
-            self.description = yaml_data["description"]
-            self.name = yaml_data["title"]
+            self.description = yaml_data["description"].strip()
+            self.name = yaml_data["title"].strip()
+
+    def __eq__(self, o):
+        return self.id == o.id
 
 
 class TemplatesRepository:

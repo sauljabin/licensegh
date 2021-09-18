@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, mock_open, patch
 from faker import Faker
 
 from licensegh import __version__
-from licensegh.licensegh import Licence, Licensegh, TemplatesRepository
+from licensegh.licensegh import License, Licensegh, TemplatesRepository
 
 faker = Faker()
 license_text = """
@@ -28,7 +28,7 @@ Copyright (c) [year] [fullname]
 
 class TestLicense(unittest.TestCase):
     def setUp(self):
-        self.license = Licence(faker.file_path(depth=5, extension="txt"))
+        self.license = License(faker.file_path(depth=5, extension="txt"))
 
     def test_license_get_id_file_name_and_directory(self):
         head, tail = os.path.split(self.license.path)
@@ -72,8 +72,25 @@ class TestLicensegh(unittest.TestCase):
 
         self.licensegh.repository.init.assert_called_once()
 
-    def test_it_loads_all_template_list_when_init(self):
+    @patch("licensegh.licensegh.os.walk")
+    def test_it_loads_all_template_list_when_init(self, walk_mock):
+        walk_mock.return_value = [
+            ("/foo", ("bar",), ("baz.txt",)),
+            ("/foo/bar", (), ("spam.txt", "eggs.txt")),
+        ]
+        self.licensegh.repository.licenses_path = faker.file_path()
+
         self.licensegh.init()
+
+        walk_mock.assert_called_once_with(self.licensegh.repository.licenses_path)
+        self.assertListEqual(
+            self.licensegh.licenses,
+            [
+                License("/foo/baz.txt"),
+                License("/foo/bar/spam.txt"),
+                License("/foo/bar/eggs.txt"),
+            ],
+        )
 
 
 class TestTemplateRepository(unittest.TestCase):
