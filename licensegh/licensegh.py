@@ -5,6 +5,7 @@ import git
 import yaml
 from rich import box
 from rich.console import Console
+from rich.prompt import Prompt
 from rich.table import Table
 
 
@@ -120,8 +121,16 @@ class License:
         console.print(self.text.replace("[", "\["))
 
     def save(self):
+        text_to_save = self.text
+
+        for argument in self.arguments:
+            value = Prompt.ask(
+                f"[magenta]Enter argument[magenta] [cyan]{argument}[cyan]"
+            )
+            text_to_save = text_to_save.replace(f"[{argument}]", value)
+
         with open("LICENSE", "w") as file:
-            file.write(self.text)
+            file.write(text_to_save)
 
     def __eq__(self, o):
         return self.id == o.id

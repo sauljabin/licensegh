@@ -66,7 +66,7 @@ class TestLicense(unittest.TestCase):
     def test_license_loads_list_of_arguments(self, open_mock):
         self.license.load()
 
-        self.assertListEqual(self.license.arguments, ["year", "fullname"])
+        self.assertCountEqual(self.license.arguments, ["year", "fullname"])
 
     @patch("builtins.open", new_callable=mock_open, read_data=license_text)
     def test_license_get_text_from_file(self, open_mock):
@@ -122,6 +122,28 @@ class TestLicense(unittest.TestCase):
 
         console_class_mock.assert_called_once_with("LICENSE", "w")
         console_class_mock.return_value.write.assert_called_once_with(self.license.text)
+
+    @patch("licensegh.licensegh.Prompt")
+    @patch("builtins.open", new_callable=mock_open)
+    def test_save_license_text_with_arguments(
+        self, console_class_mock, prompt_class_mock
+    ):
+        self.license.text = license_text
+        self.license.arguments = ["year", "fullname"]
+        prompt_class_mock.ask.side_effect = ["2020", "John Doe"]
+
+        self.license.save()
+
+        expected = [
+            call("[magenta]Enter argument[magenta] [cyan]year[cyan]"),
+            call("[magenta]Enter argument[magenta] [cyan]fullname[cyan]"),
+        ]
+        self.assertEqual(prompt_class_mock.ask.call_args_list, expected)
+        console_class_mock.return_value.write.assert_called_once_with(
+            self.license.text.replace("[year]", "2020").replace(
+                "[fullname]", "John Doe"
+            )
+        )
 
 
 class TestLicensegh(unittest.TestCase):
