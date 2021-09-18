@@ -3,6 +3,9 @@
 ![GitHub](https://img.shields.io/github/license/sauljabin/licensegh)
 ![GitHub branch checks state](https://img.shields.io/github/checks-status/sauljabin/licensegh/main?label=tests)
 ![Codecov](https://img.shields.io/codecov/c/github/sauljabin/licensegh)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/licensegh)
+![PyPI](https://img.shields.io/pypi/v/licensegh)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/pypi/licensegh)
 
 `licensegh` is a command line tool that generates a license file for a project from the github open source lincese templates
 
