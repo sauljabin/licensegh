@@ -28,7 +28,7 @@ class Licensegh:
     def print_licenses(self, licenses, print_description=False):
         console = Console()
 
-        table = Table(title="GitHub License Templates", box=box.HORIZONTALS)
+        table = Table(box=box.HORIZONTALS)
         table.add_column("Id", style="cyan", justify="right")
         table.add_column("Name", style="magenta")
 

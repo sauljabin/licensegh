@@ -96,6 +96,8 @@ class TestLicensegh(unittest.TestCase):
         self.assertEqual(__version__, "0.1.0")
 
     def test_it_starts_templates_repository(self):
+        self.licensegh.repository.licenses_path = faker.file_path()
+
         self.licensegh.init()
 
         self.licensegh.repository.init.assert_called_once()
