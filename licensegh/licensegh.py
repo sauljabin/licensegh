@@ -25,7 +25,7 @@ class Licensegh:
     def print_all_licenses(self):
         self.print_licenses(self.licenses)
 
-    def print_licenses(self, licenses):
+    def print_licenses(self, licenses, print_description=False):
         console = Console()
 
         table = Table(title="GitHub License Templates", box=box.HORIZONTALS)
@@ -34,7 +34,13 @@ class Licensegh:
 
         for license in licenses:
             license.load()
-            table.add_row(license.id, license.name)
+            if print_description:
+                table.add_row(
+                    license.id,
+                    "{}\n[white]{}[white]".format(license.name, license.description),
+                )
+            else:
+                table.add_row(license.id, license.name)
 
         console.print(table)
 

@@ -1,6 +1,6 @@
 import os
 import unittest
-from unittest.mock import MagicMock, mock_open, patch
+from unittest.mock import MagicMock, call, mock_open, patch
 
 from faker import Faker
 
@@ -128,8 +128,47 @@ class TestLicensegh(unittest.TestCase):
 
         self.licensegh.print_licenses.assert_called_once_with(self.licensegh.licenses)
 
-    def test_it_prints_table(self):
-        self.fail()
+    @patch("licensegh.licensegh.Console")
+    @patch("licensegh.licensegh.Table")
+    def test_it_prints_table(self, table_class_mock, console_class_mock):
+        table_mock = MagicMock()
+        table_class_mock.return_value = table_mock
+
+        license1 = MagicMock()
+        license1.id = faker.word()
+        license1.name = faker.name()
+
+        license2 = MagicMock()
+        license2.id = faker.word()
+        license2.name = faker.name()
+
+        licenses = [license1, license2]
+
+        self.licensegh.print_licenses(licenses)
+
+        expected = [call(license1.id, license1.name), call(license2.id, license2.name)]
+        self.assertEqual(table_mock.add_row.call_args_list, expected)
+
+    @patch("licensegh.licensegh.Console")
+    @patch("licensegh.licensegh.Table")
+    def test_it_prints_table_with_description(
+        self, table_class_mock, console_class_mock
+    ):
+        table_mock = MagicMock()
+        table_class_mock.return_value = table_mock
+
+        license = MagicMock()
+        license.id = faker.word()
+        license.name = faker.name()
+        license.description = faker.sentence()
+
+        licenses = [license]
+
+        self.licensegh.print_licenses(licenses, True)
+
+        table_mock.add_row.assert_called_once_with(
+            license.id, "{}\n[white]{}[white]".format(license.name, license.description)
+        )
 
 
 class TestTemplateRepository(unittest.TestCase):
