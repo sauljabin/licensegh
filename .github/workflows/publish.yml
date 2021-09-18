@@ -1,19 +1,20 @@
-name: CI
+name: Publish to PyPI
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
 
 jobs:
   build:
     runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
-        python-version: [3.7, 3.8, 3.9]
+        platform: [ubuntu-latest]
+        python-version: [3.7]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,9 +27,11 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install poetry
           poetry install
-      - name: Run analysis
-        run: poetry run analyze
-      - name: Run tests
-        run: poetry run tests-coverage
-      - name: Publish coverage
-        uses: codecov/codecov-action@v2
+      - name: Run build
+        run: poetry build
+      - name: Publish package
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
