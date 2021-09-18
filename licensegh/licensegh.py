@@ -37,14 +37,20 @@ class Licensegh:
             licenses[0].print()
 
     def print_licenses_by_id(self, license_id):
-        self.print_licenses(
-            [
-                license
-                for license in self.licenses
-                if re.match(".*({}).*".format(license_id), license.id)
-            ],
-            True,
-        )
+        licenses = [
+            license
+            for license in self.licenses
+            if re.match(".*({}).*".format(license_id), license.id)
+        ]
+
+        if len(licenses) == 0:
+            console = Console()
+            console.print("[red]Licenses not found[red]")
+        else:
+            self.print_licenses(
+                licenses,
+                True,
+            )
 
     def print_licenses(self, licenses, print_description=False):
         console = Console()

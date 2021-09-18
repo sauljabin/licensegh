@@ -153,6 +153,17 @@ class TestLicensegh(unittest.TestCase):
             True,
         )
 
+    @patch("licensegh.licensegh.Console")
+    def test_print_licenses_not_found(self, console_class_mock):
+        self.licensegh.licenses = []
+
+        console_mock = MagicMock()
+        console_class_mock.return_value = console_mock
+
+        self.licensegh.print_licenses_by_id(faker.word())
+
+        console_mock.print.assert_called_once_with("[red]Licenses not found[red]")
+
     def test_print_license_by_id(self):
         license1 = MagicMock()
         license1.id = "spam"
@@ -178,7 +189,7 @@ class TestLicensegh(unittest.TestCase):
 
         self.licensegh.print_license_by_id(faker.word())
 
-        console_mock.print.called_once_with("[red]License not found[red]")
+        console_mock.print.assert_called_once_with("[red]License not found[red]")
 
     def test_print_all_licenses(self):
         self.licensegh.licenses = MagicMock()
