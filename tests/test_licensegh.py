@@ -152,7 +152,7 @@ class TestLicensegh(unittest.TestCase):
         self.licensegh.repository = MagicMock()
 
     def test_version(self):
-        self.assertEqual(__version__, "0.1.0")
+        self.assertEqual(__version__, "0.1.1")
 
     def test_it_starts_templates_repository(self):
         self.licensegh.repository.licenses_path = faker.file_path()

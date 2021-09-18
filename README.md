@@ -11,18 +11,21 @@
 
 ## Installation
 
+Intall with pip:
+
 ```sh
 pip install licensegh
 ```
 
-## Usage
-
-Generate a LICENSE file from a github template (`mit` example):
+Upgrade with pip:
 ```sh
-licensegh mit
+pip install --upgrade licensegh
 ```
 
-Help:
+## Usage
+
+Help `licensegh -h`:
+
 ```sh
 Usage: licensegh [OPTIONS] <license id>
 
@@ -34,6 +37,24 @@ Options:
   -h, --help    Show this message and exit.
 ```
 
+List `licensegh -l`:
+
+![](screenshots/list.png)
+
+Search `licensegh -s`:
+
+![](screenshots/search.png)
+
+Print `licensegh -p`:
+
+![](screenshots/print.png)
+
+Save:
+
+```sh
+licensegh mit
+```
+
 ## Development
 
 Install development tools:
@@ -42,41 +63,43 @@ Install development tools:
 - install [poetry](https://python-poetry.org/docs/#installation)
 
 Installing development dependencies:
+
 ```sh
 poetry install
 ```
 
-Running multi version tests (`3.7`, `3.8`, `3.9`):
-```sh
-poetry run multi-version-tests
-```
-
 Running unit tests:
+
 ```sh
-poetry run tests
+poetry run python -m scripts.tests
 ```
 
-Running code analysis:
+Running multi version tests (`3.7`, `3.8`, `3.9`):
+
 ```sh
-poetry run analyze
+poetry run python -m scripts.multi-version-tests
 ```
 
 Applying code styles:
+
 ```sh
-poetry run styles
+poetry run python -m scripts.styles
 ```
 
-Running cli using `python3`:
+Running code analysis:
+
 ```sh
-python3 -m licensegh
+poetry run python -m scripts.analyze
+```
+
+Running code coverage:
+
+```sh
+poetry run python -m scripts.tests-coverage
 ```
 
 Running cli using `poetry`:
+
 ```sh
 poetry run licensegh
-```
-
-Runniging code coverage:
-```sh
-poetry run tests-coverage
 ```
