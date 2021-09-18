@@ -47,3 +47,8 @@ Running cli using `poetry`:
 ```sh
 poetry run licensegh
 ```
+
+Runniging code coverage:
+```sh
+poetry run tests-coverage
+```

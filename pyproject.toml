@@ -33,6 +33,7 @@ tox = "^3.24.4"
 unittest = "^0.0"
 Faker = "^8.13.2"
 tox-gh-actions = "^2.7.0"
+coverage = "^5.5"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -67,3 +68,4 @@ licensegh = "licensegh.cli:main"
 tests = "scripts.tests:main"
 multi-version-tests = "scripts.tests:multi_version_tests"
 analyze = "scripts.tests:analyze"
+tests-coverage = "scripts.tests:tests_coverage"

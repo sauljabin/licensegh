@@ -29,4 +29,6 @@ jobs:
       - name: Run analysis
         run: poetry run analyze
       - name: Run tests
-        run: poetry run multi-version-tests
+        run: poetry run tests-coverage
+      - name: Publish coverage
+        uses: codecov/codecov-action@v2
