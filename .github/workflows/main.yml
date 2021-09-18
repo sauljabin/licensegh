@@ -3,9 +3,6 @@ name: CI
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
 
 jobs:
   build:
@@ -32,3 +29,11 @@ jobs:
         run: poetry run tests-coverage
       - name: Publish coverage
         uses: codecov/codecov-action@v2
+      - name: Run build
+        run: poetry build
+      - name: Publish package
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
