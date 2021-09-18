@@ -112,7 +112,7 @@ class TestLicense(unittest.TestCase):
 
         self.license.print()
 
-        console_mock.print.assert_called_with("text \[arg1] \[arg2]")
+        console_mock.print.assert_called_with(r"text \[arg1] \[arg2]")
 
     @patch("builtins.open", new_callable=mock_open)
     def test_save_license_text(self, console_class_mock):
