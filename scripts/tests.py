@@ -1,26 +1,33 @@
 import subprocess
 import sys
-from functools import reduce
 
 
 def main():
-    poetry = subprocess.run(["poetry", "run", "python", "-m", "unittest", "-v"])
-    sys.exit(poetry.returncode)
+    unittest = subprocess.run(["poetry", "run", "python", "-m", "unittest", "-v"])
+    sys.exit(unittest.returncode)
 
 
 def analyze():
-    results = [
-        subprocess.run(["poetry", "run", "black", "--check", "."]).returncode,
-        subprocess.run(["poetry", "run", "isort", "--check", "."]).returncode,
-        subprocess.run(["poetry", "run", "flake8", "."]).returncode,
-        subprocess.run(["poetry", "run", "bandit", "-r", "licensegh/"]).returncode,
-    ]
-    sys.exit(reduce(lambda x, y: x or y, results))
+    print(">>> black")
+    black = subprocess.run(["poetry", "run", "black", "--check", "."])
+
+    print(">>> isort")
+    isort = subprocess.run(["poetry", "run", "isort", "--check", "."])
+
+    print(">>> flake8")
+    flake8 = subprocess.run(["poetry", "run", "flake8", "."])
+
+    print(">>> bandit")
+    bandit = subprocess.run(["poetry", "run", "bandit", "-r", "licensegh/"])
+
+    sys.exit(
+        black.returncode or isort.returncode or flake8.returncode or bandit.returncode
+    )
 
 
 def multi_version_tests():
-    poetry = subprocess.run(["poetry", "run", "tox", "-q"])
-    sys.exit(poetry.returncode)
+    tox = subprocess.run(["poetry", "run", "tox", "-q"])
+    sys.exit(tox.returncode)
 
 
 if __name__ == "__main__":
