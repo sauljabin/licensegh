@@ -97,6 +97,15 @@ class TestLicense(unittest.TestCase):
 
         console_mock.print.called_once_with(self.license.text)
 
+    @patch("builtins.open", new_callable=mock_open)
+    def test_save_license_text(self, console_class_mock):
+        self.license.text = faker.text()
+
+        self.license.save()
+
+        console_class_mock.assert_called_once_with("LICENSE", "w")
+        console_class_mock.return_value.write.assert_called_once_with(self.license.text)
+
 
 class TestLicensegh(unittest.TestCase):
     def setUp(self):
@@ -240,6 +249,26 @@ class TestLicensegh(unittest.TestCase):
         table_mock.add_row.assert_called_once_with(
             license.id, "{}\n[white]{}[white]".format(license.name, license.description)
         )
+
+    def test_save_license_by_id(self):
+        license = MagicMock()
+
+        self.licensegh.licenses = [license]
+
+        self.licensegh.save_license_by_id(license.id)
+
+        license.save.assert_called_once()
+
+    @patch("licensegh.licensegh.Console")
+    def test_print_license_not_found_when_save(self, console_class_mock):
+        self.licensegh.licenses = []
+
+        console_mock = MagicMock()
+        console_class_mock.return_value = console_mock
+
+        self.licensegh.save_license_by_id(faker.word())
+
+        console_mock.print.assert_called_once_with("[red]License not found[red]")
 
 
 class TestTemplateRepository(unittest.TestCase):

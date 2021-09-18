@@ -34,3 +34,9 @@ class TestCli(unittest.TestCase):
         self.cli.run(True, False, False, license_id)
 
         self.cli.licensegh.print_license_by_id.assert_called_once_with(license_id)
+
+    def test_save_license_by_id(self):
+        license_id = faker.word()
+        self.cli.run(False, False, False, license_id)
+
+        self.cli.licensegh.save_license_by_id.assert_called_once_with(license_id)

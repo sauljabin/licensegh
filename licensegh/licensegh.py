@@ -71,6 +71,16 @@ class Licensegh:
 
         console.print(table)
 
+    def save_license_by_id(self, license_id):
+        licenses = [license for license in self.licenses if license_id == license.id]
+
+        if len(licenses) == 0:
+            console = Console()
+            console.print("[red]License not found[red]")
+        else:
+            licenses[0].load()
+            licenses[0].save()
+
 
 class License:
     def __init__(self, path):
@@ -106,6 +116,10 @@ class License:
         )
         console.rule()
         console.print(self.text)
+
+    def save(self):
+        with open("LICENSE", "w") as file:
+            file.write(self.text)
 
     def __eq__(self, o):
         return self.id == o.id
