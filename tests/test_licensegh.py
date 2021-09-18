@@ -63,6 +63,12 @@ class TestLicense(unittest.TestCase):
         open_mock.assert_called_with(self.license.path, "r")
 
     @patch("builtins.open", new_callable=mock_open, read_data=license_text)
+    def test_license_loads_list_of_arguments(self, open_mock):
+        self.license.load()
+
+        self.assertListEqual(self.license.arguments, ["year", "fullname"])
+
+    @patch("builtins.open", new_callable=mock_open, read_data=license_text)
     def test_license_get_text_from_file(self, open_mock):
         self.license.load()
 

@@ -91,6 +91,7 @@ class License:
         self.description = ""
         self.name = ""
         self.text = ""
+        self.arguments = []
 
     def load(self):
         with open(self.path, "r") as file:
@@ -105,6 +106,7 @@ class License:
             self.description = metadata["description"].strip()
             self.name = metadata["title"].strip()
             self.text = file_parts["text"].strip()
+            self.arguments = list(set(re.findall(r"\[([a-z]+)\]", self.text)))
 
     def print(self):
         console = Console()
