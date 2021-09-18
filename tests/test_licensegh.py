@@ -1,6 +1,6 @@
 import os
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, mock_open, patch
 
 from faker import Faker
 
@@ -8,6 +8,22 @@ from licensegh import __version__
 from licensegh.licensegh import Licence, Licensegh, TemplatesRepository
 
 faker = Faker()
+license_text = """
+---
+title: MIT License
+spdx-id: MIT
+featured: true
+hidden: false
+
+description: The description.
+
+---
+
+MIT License
+
+Copyright (c) [year] [fullname]
+
+"""
 
 
 class TestLicense(unittest.TestCase):
@@ -20,6 +36,27 @@ class TestLicense(unittest.TestCase):
         self.assertEqual(tail.replace(".txt", ""), self.license.id)
         self.assertEqual(tail, self.license.file_name)
         self.assertEqual(head, self.license.directory)
+
+    @patch("builtins.open", new_callable=mock_open, read_data=license_text)
+    def test_license_calls_open_file_read_only(self, open_mock):
+        self.license.load()
+
+        open_mock.assert_called_with(self.license.path, "r")
+
+    @patch("builtins.open", new_callable=mock_open, read_data=license_text)
+    def test_license_get_text_from_file(self, open_mock):
+        self.license.load()
+
+        self.assertEqual(
+            self.license.text, "MIT License\n\nCopyright (c) [year] [fullname]"
+        )
+
+    @patch("builtins.open", new_callable=mock_open, read_data=license_text)
+    def test_license_get_yaml_data_from_file(self, open_mock):
+        self.license.load()
+
+        self.assertEqual(self.license.name, "MIT License")
+        self.assertEqual(self.license.description, "The description.")
 
 
 class TestLicensegh(unittest.TestCase):

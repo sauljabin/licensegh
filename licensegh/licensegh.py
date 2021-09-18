@@ -1,6 +1,12 @@
 import os
 
 import git
+import yaml
+
+try:
+    from yaml import CLoader as Loader
+except ImportError:
+    from yaml import Loader
 
 
 class Licensegh:
@@ -21,6 +27,16 @@ class Licence:
         self.description = ""
         self.name = ""
         self.text = ""
+
+    def load(self):
+        with open(self.path, "r") as file:
+            full_text = file.read()
+            file_parts = full_text.split("---")
+            self.text = file_parts[-1].strip()
+
+            yaml_data = yaml.load(file_parts[-2], Loader=Loader)
+            self.description = yaml_data["description"]
+            self.name = yaml_data["title"]
 
 
 class TemplatesRepository:

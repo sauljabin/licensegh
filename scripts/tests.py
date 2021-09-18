@@ -1,8 +1,11 @@
 import os
+import subprocess
+import sys
 
 
 def main():
-    os.system("poetry run python -m unittest -v")
+    poetry = subprocess.run(["poetry", "run", "python", "-m", "unittest", "-v"])
+    sys.exit(poetry.returncode)
 
 
 def analyze():
@@ -13,7 +16,8 @@ def analyze():
 
 
 def multi_version_tests():
-    os.system("poetry run tox -q")
+    poetry = subprocess.run(["poetry", "run", "tox", "-q"])
+    sys.exit(poetry.returncode)
 
 
 if __name__ == "__main__":
