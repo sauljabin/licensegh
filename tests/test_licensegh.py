@@ -95,7 +95,18 @@ class TestLicense(unittest.TestCase):
 
         self.license.print()
 
-        console_mock.print.called_once_with(self.license.text)
+        console_mock.print.assert_called_with(self.license.text)
+
+    @patch("licensegh.licensegh.Console")
+    def test_scape_arguments_when_printing_license_text(self, console_class_mock):
+        self.license.text = "text [arg1] [arg2]"
+
+        console_mock = MagicMock()
+        console_class_mock.return_value = console_mock
+
+        self.license.print()
+
+        console_mock.print.assert_called_with("text \[arg1] \[arg2]")
 
     @patch("builtins.open", new_callable=mock_open)
     def test_save_license_text(self, console_class_mock):

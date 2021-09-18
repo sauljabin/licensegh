@@ -115,7 +115,7 @@ class License:
             "[green]Id:[green]\t[magenta bold]{}[magenta bold]".format(self.id)
         )
         console.rule()
-        console.print(self.text)
+        console.print(self.text.replace("[", "\["))
 
     def save(self):
         with open("LICENSE", "w") as file:
