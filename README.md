@@ -8,6 +8,10 @@
 
 ## Installation
 
+```sh
+pip install licensegh
+```
+
 ## Usage
 
 Generate a LICENSE file from a github template (`mit` example):
