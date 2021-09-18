@@ -1,19 +1,19 @@
-name: CI
+name: Publish Test Coverage
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types:
+      - completed
 
 jobs:
   build:
     runs-on: ${{ matrix.platform }}
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest]
-        python-version: [3.7, 3.8, 3.9]
+        platform: [ubuntu-latest]
+        python-version: [3.7]
 
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install poetry
           poetry install
-      - name: Run Analysis
-        run: poetry run analyze
       - name: Run Tests
-        run: poetry run tests
+        run: poetry run tests-coverage
+      - name: Publish Coverage
+        uses: codecov/codecov-action@v2
