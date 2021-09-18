@@ -25,6 +25,25 @@ Copyright (c) [year] [fullname]
 
 """
 
+license_text_with_more_dashes = """
+---
+title: SIL Open Font License 1.1
+description: The description.
+
+---
+
+Copyright (c) [year] [fullname] ([email])
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+"""
+
 
 class TestLicense(unittest.TestCase):
     def setUp(self):
@@ -58,6 +77,15 @@ class TestLicense(unittest.TestCase):
         self.assertEqual(self.license.name, "MIT License")
         self.assertEqual(self.license.description, "The description.")
 
+    @patch(
+        "builtins.open", new_callable=mock_open, read_data=license_text_with_more_dashes
+    )
+    def test_license_get_yaml_data_from_file_with_multiple_dashes(self, open_mock):
+        self.license.load()
+
+        self.assertEqual(self.license.name, "SIL Open Font License 1.1")
+        self.assertEqual(self.license.description, "The description.")
+
 
 class TestLicensegh(unittest.TestCase):
     def setUp(self):
@@ -75,8 +103,8 @@ class TestLicensegh(unittest.TestCase):
     @patch("licensegh.licensegh.os.walk")
     def test_it_loads_all_template_list_when_init(self, walk_mock):
         walk_mock.return_value = [
-            ("/foo", ("bar",), ("baz.txt",)),
-            ("/foo/bar", (), ("spam.txt", "eggs.txt")),
+            ("/foo", ["bar"], ["baz.txt"]),
+            ("/foo/bar", [], ["spam.txt", "eggs.txt"]),
         ]
         self.licensegh.repository.licenses_path = faker.file_path()
 
@@ -87,10 +115,21 @@ class TestLicensegh(unittest.TestCase):
             self.licensegh.licenses,
             [
                 License("/foo/baz.txt"),
-                License("/foo/bar/spam.txt"),
                 License("/foo/bar/eggs.txt"),
+                License("/foo/bar/spam.txt"),
             ],
         )
+
+    def test_print_all_licenses(self):
+        self.licensegh.licenses = MagicMock()
+        self.licensegh.print_licenses = MagicMock()
+
+        self.licensegh.print_all_licenses()
+
+        self.licensegh.print_licenses.assert_called_once_with(self.licensegh.licenses)
+
+    def test_it_prints_table(self):
+        self.fail()
 
 
 class TestTemplateRepository(unittest.TestCase):

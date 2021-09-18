@@ -13,3 +13,8 @@ class TestCli(unittest.TestCase):
         self.cli.run(False, False, False, None)
 
         self.cli.licensegh.init.assert_called_once()
+
+    def test_cli_print_all_licenses(self):
+        self.cli.run(False, False, True, None)
+
+        self.cli.licensegh.print_all_licenses.assert_called_once()

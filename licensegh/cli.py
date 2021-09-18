@@ -11,8 +11,9 @@ class Cli:
     def run(self, print, search, list, license_id):
         self.licensegh.init()
 
-    def print_license_table(self, licenses_list):
-        pass
+        if list:
+            self.licensegh.print_all_licenses()
+            return
 
 
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})

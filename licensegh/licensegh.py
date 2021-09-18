@@ -2,6 +2,9 @@ import os
 
 import git
 import yaml
+from rich import box
+from rich.console import Console
+from rich.table import Table
 
 
 class Licensegh:
@@ -15,8 +18,25 @@ class Licensegh:
 
     def load_licenses(self):
         for dirpath, dirnames, filenames in os.walk(self.repository.licenses_path):
+            filenames.sort()
             for license_path in filenames:
                 self.licenses.append(License(os.path.join(dirpath, license_path)))
+
+    def print_all_licenses(self):
+        self.print_licenses(self.licenses)
+
+    def print_licenses(self, licenses):
+        console = Console()
+
+        table = Table(title="GitHub License Templates", box=box.HORIZONTALS)
+        table.add_column("Id", style="cyan", justify="right")
+        table.add_column("Name", style="magenta")
+
+        for license in licenses:
+            license.load()
+            table.add_row(license.id, license.name)
+
+        console.print(table)
 
 
 class License:
@@ -32,12 +52,13 @@ class License:
     def load(self):
         with open(self.path, "r") as file:
             full_text = file.read()
-            file_parts = full_text.split("---")
-            self.text = file_parts[-1].strip()
+            cut_index = full_text.find("---", 3)
+            file_parts = [full_text[:cut_index], full_text[cut_index + 3 :]]
 
-            yaml_data = yaml.safe_load(file_parts[-2])
+            yaml_data = yaml.safe_load(file_parts[0])
             self.description = yaml_data["description"].strip()
             self.name = yaml_data["title"].strip()
+            self.text = file_parts[1].strip()
 
     def __eq__(self, o):
         return self.id == o.id
