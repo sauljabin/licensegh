@@ -32,6 +32,7 @@ flake8 = "^3.9.2"
 tox = "^3.24.4"
 unittest = "^0.0"
 Faker = "^8.13.2"
+tox-gh-actions = "^2.7.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -43,6 +44,12 @@ legacy_tox_ini = """
 isolated_build = true
 skipsdist = true
 envlist = py37, py38, py39
+
+[gh-actions]
+python =
+    3.7: py37
+    3.8: py38
+    3.9: py39
 
 [testenv]
 whitelist_externals = poetry
