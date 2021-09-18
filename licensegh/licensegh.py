@@ -6,13 +6,21 @@ import git
 class Licensegh:
     def __init__(self):
         self.repository = TemplatesRepository()
+        self.licenses = []
 
     def init(self):
         self.repository.init()
 
 
 class Licence:
-    pass
+    def __init__(self, path):
+        self.path = path
+        self.directory, self.file_name = os.path.split(self.path)
+        self.id = self.file_name.replace(".txt", "")
+
+        self.description = ""
+        self.name = ""
+        self.text = ""
 
 
 class TemplatesRepository:

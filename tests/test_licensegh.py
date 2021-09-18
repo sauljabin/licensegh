@@ -2,8 +2,24 @@ import os
 import unittest
 from unittest.mock import MagicMock, patch
 
+from faker import Faker
+
 from licensegh import __version__
-from licensegh.licensegh import Licensegh, TemplatesRepository
+from licensegh.licensegh import Licence, Licensegh, TemplatesRepository
+
+faker = Faker()
+
+
+class TestLicense(unittest.TestCase):
+    def setUp(self):
+        self.license = Licence(faker.file_path(depth=5, extension="txt"))
+
+    def test_license_get_id_file_name_and_directory(self):
+        head, tail = os.path.split(self.license.path)
+
+        self.assertEqual(tail.replace(".txt", ""), self.license.id)
+        self.assertEqual(tail, self.license.file_name)
+        self.assertEqual(head, self.license.directory)
 
 
 class TestLicensegh(unittest.TestCase):
@@ -18,6 +34,9 @@ class TestLicensegh(unittest.TestCase):
         self.licensegh.init()
 
         self.licensegh.repository.init.assert_called_once()
+
+    def test_it_loads_all_template_list_when_init(self):
+        self.licensegh.init()
 
 
 class TestTemplateRepository(unittest.TestCase):
