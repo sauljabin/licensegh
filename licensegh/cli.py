@@ -15,6 +15,10 @@ class Cli:
             self.licensegh.print_all_licenses()
             return
 
+        if search:
+            self.licensegh.print_licenses_by_id(license_id)
+            return
+
 
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})
 @click.option("--print", "-p", is_flag=True, help="Print the license file")

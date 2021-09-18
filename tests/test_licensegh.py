@@ -123,6 +123,29 @@ class TestLicensegh(unittest.TestCase):
         )
 
     def test_print_all_licenses(self):
+        license1 = License("/foo/bar/spam.txt")
+        license2 = License("/foo/bar/spam-2.0.txt")
+
+        self.licensegh.licenses = [
+            License("/foo/bar/baz.txt"),
+            License("/foo/bar/eggs.txt"),
+            license1,
+            license2,
+        ]
+
+        self.licensegh.print_licenses = MagicMock()
+
+        self.licensegh.print_licenses_by_id("spam")
+
+        self.licensegh.print_licenses.assert_called_once_with(
+            [
+                license1,
+                license2,
+            ],
+            True,
+        )
+
+    def test_print_licenses_by_id(self):
         self.licensegh.licenses = MagicMock()
         self.licensegh.print_licenses = MagicMock()
 

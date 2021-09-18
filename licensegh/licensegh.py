@@ -1,4 +1,5 @@
 import os
+import re
 
 import git
 import yaml
@@ -24,6 +25,16 @@ class Licensegh:
 
     def print_all_licenses(self):
         self.print_licenses(self.licenses)
+
+    def print_licenses_by_id(self, license_id):
+        self.print_licenses(
+            [
+                license
+                for license in self.licenses
+                if re.match(".*({}).*".format(license_id), license.id)
+            ],
+            True,
+        )
 
     def print_licenses(self, licenses, print_description=False):
         console = Console()
