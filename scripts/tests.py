@@ -1,6 +1,6 @@
-import os
 import subprocess
 import sys
+from functools import reduce
 
 
 def main():
@@ -9,10 +9,13 @@ def main():
 
 
 def analyze():
-    os.system("poetry run black --check .")
-    os.system("poetry run isort --check .")
-    os.system("poetry run flake8 .")
-    os.system("poetry run bandit -r licensegh/")
+    results = [
+        subprocess.run(["poetry", "run", "black", "--check", "."]).returncode,
+        subprocess.run(["poetry", "run", "isort", "--check", "."]).returncode,
+        subprocess.run(["poetry", "run", "flake8", "."]).returncode,
+        subprocess.run(["poetry", "run", "bandit", "-r", "licensegh/"]).returncode,
+    ]
+    sys.exit(reduce(lambda x, y: x or y, results))
 
 
 def multi_version_tests():

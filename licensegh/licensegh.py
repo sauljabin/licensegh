@@ -3,11 +3,6 @@ import os
 import git
 import yaml
 
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
-
 
 class Licensegh:
     def __init__(self):
@@ -34,7 +29,7 @@ class Licence:
             file_parts = full_text.split("---")
             self.text = file_parts[-1].strip()
 
-            yaml_data = yaml.load(file_parts[-2], Loader=Loader)
+            yaml_data = yaml.safe_load(file_parts[-2])
             self.description = yaml_data["description"]
             self.name = yaml_data["title"]
 
