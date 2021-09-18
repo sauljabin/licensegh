@@ -53,12 +53,15 @@ class License:
         with open(self.path, "r") as file:
             full_text = file.read()
             cut_index = full_text.find("---", 3)
-            file_parts = [full_text[:cut_index], full_text[cut_index + 3 :]]
+            file_parts = {
+                "metadata": full_text[:cut_index],
+                "text": full_text[cut_index + 3 :],
+            }
 
-            yaml_data = yaml.safe_load(file_parts[0])
-            self.description = yaml_data["description"].strip()
-            self.name = yaml_data["title"].strip()
-            self.text = file_parts[1].strip()
+            metadata = yaml.safe_load(file_parts["metadata"])
+            self.description = metadata["description"].strip()
+            self.name = metadata["title"].strip()
+            self.text = file_parts["text"].strip()
 
     def __eq__(self, o):
         return self.id == o.id
