@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from faker import Faker
 
@@ -13,7 +13,8 @@ class TestCli(unittest.TestCase):
         self.cli = Cli()
         self.cli.licensegh = MagicMock()
 
-    def test_cli_call_licensegh_init(self):
+    @patch("licensegh.cli.click")
+    def test_cli_call_licensegh_init(self, click_mock):
         self.cli.run(False, False, False, None)
 
         self.cli.licensegh.init.assert_called_once()
@@ -40,3 +41,11 @@ class TestCli(unittest.TestCase):
         self.cli.run(False, False, False, license_id)
 
         self.cli.licensegh.save_license_by_id.assert_called_once_with(license_id)
+
+    @patch("licensegh.cli.click")
+    def test_cli_shows_help_when_license_id_does_not_exists(self, click_mock):
+        self.cli.run(False, False, False, None)
+
+        self.cli.licensegh.save_license_by_id.assert_not_called()
+        click_mock.get_current_context.assert_called_once()
+        click_mock.echo.assert_called_once()

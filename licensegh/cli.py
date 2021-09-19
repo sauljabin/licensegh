@@ -23,7 +23,12 @@ class Cli:
             self.licensegh.print_license_by_id(license_id)
             return
 
-        self.licensegh.save_license_by_id(license_id)
+        if license_id:
+            self.licensegh.save_license_by_id(license_id)
+            return
+
+        with click.get_current_context() as context:
+            click.echo(context.get_help())
 
 
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})
