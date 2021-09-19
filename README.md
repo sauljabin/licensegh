@@ -8,7 +8,7 @@
 <a href="https://libraries.io/pypi/licensegh"><img alt="Dependencies" src="https://img.shields.io/librariesio/release/pypi/licensegh"></a>
 <a href="https://pypi.org/project/licensegh"><img alt="Platform" src="https://img.shields.io/badge/platform-linux%20%7C%20osx-blueviolet"></a>
 
-`licensegh` is a command line tool that generates a LICENSE file for a project from the [github license templates repository](https://github.com/github/choosealicense.com/tree/gh-pages/_licenses).
+`licensegh` is a command line tool that generates a `LICENSE` file for a project from the [github license templates repository](https://github.com/github/choosealicense.com/tree/gh-pages/_licenses).
 
 ![https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/options.png](https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/options.png)
 
@@ -46,7 +46,7 @@ Print a license:
 licensegh -p
 ```
 
-Save a license
+Save a license:
 ```sh
 licensegh mit
 ```
