@@ -10,7 +10,7 @@
 
 `licensegh` is a command line tool that generates a license file for a project from the github open source license templates.
 
-![](https://github.com/sauljabin/licensegh/blob/main/screenshots/options.png)
+![](https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/options.png)
 
 ## Installation
 
