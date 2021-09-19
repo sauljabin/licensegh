@@ -8,11 +8,11 @@
 <a href="https://libraries.io/pypi/licensegh"><img alt="Dependencies" src="https://img.shields.io/librariesio/release/pypi/licensegh"></a>
 
 
-`licensegh` is a command line tool that generates a license file for a project from the github open source lincese templates
+`licensegh` is a command line tool that generates a license file for a project from the github open source license templates
 
 ## Installation
 
-Intall with pip:
+Install with pip:
 
 ```sh
 pip install licensegh
