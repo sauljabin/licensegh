@@ -6,14 +6,15 @@
 <a href="https://pypi.org/project/licensegh/"><img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/licensegh"></a>
 <a href="https://pypi.org/project/licensegh/"><img alt="Version" src="https://img.shields.io/pypi/v/licensegh"></a>
 <a href="https://libraries.io/pypi/licensegh"><img alt="Dependencies" src="https://img.shields.io/librariesio/release/pypi/licensegh"></a>
+<a href="https://pypi.org/project/licensegh/"><img alt="Platform" src="https://img.shields.io/badge/platform-linux%20%7C%20osx-blueviolet"></a>
 
+`licensegh` is a command line tool that generates a license file for a project from the github open source license templates.
 
-`licensegh` is a command line tool that generates a license file for a project from the github open source license templates
+![](https://github.com/sauljabin/licensegh/blob/main/screenshots/options.png)
 
 ## Installation
 
 Install with pip:
-
 ```sh
 pip install licensegh
 ```
@@ -25,82 +26,72 @@ pip install --upgrade licensegh
 
 ## Usage
 
-Help `licensegh -h`:
-
+Help:
 ```sh
-Usage: licensegh [OPTIONS] <license id>
-
-Options:
-  -p, --print   Print the license file
-  -s, --search  Search license, shows a list
-  -l, --list    List all found licenses
-  --version     Show the version and exit.
-  -h, --help    Show this message and exit.
+licensegh -h
 ```
 
-List `licensegh -l`:
+List all licenses:
+```sh
+licensegh -l
+```
 
-![](screenshots/list.png)
+Search licenses:
+```sh
+licensegh -s
+```
 
-Search `licensegh -s`:
+Print a license: 
+```sh
+licensegh -p
+```
 
-![](screenshots/search.png)
-
-Print `licensegh -p`:
-
-![](screenshots/print.png)
-
-Save:
-
+Save a license
 ```sh
 licensegh mit
 ```
 
 ## Development
 
-Install development tools:
-
-- make sure you have `python3.7`, `python3.8`, `python3.9` aliases installed
-- install [poetry](https://python-poetry.org/docs/#installation)
+Installing poetry:
+```sh
+pip install poetry
+```
 
 Installing development dependencies:
-
 ```sh
 poetry install
 ```
 
 Running unit tests:
-
 ```sh
 poetry run python -m scripts.tests
 ```
 
 Running multi version tests (`3.7`, `3.8`, `3.9`):
 
+> Make sure you have `python3.7`, `python3.8`, `python3.9` aliases installed
+
 ```sh
 poetry run python -m scripts.multi-version-tests
 ```
 
 Applying code styles:
-
 ```sh
 poetry run python -m scripts.styles
 ```
 
 Running code analysis:
-
 ```sh
 poetry run python -m scripts.analyze
 ```
 
 Running code coverage:
-
 ```sh
 poetry run python -m scripts.tests-coverage
 ```
 
 Running cli using `poetry`:
-
 ```sh
 poetry run licensegh
 ```
