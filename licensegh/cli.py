@@ -32,9 +32,9 @@ class Cli:
 
 
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})
-@click.option("--print", "-p", is_flag=True, help="Print the license file")
-@click.option("--search", "-s", is_flag=True, help="Search license, shows a list")
-@click.option("--list", "-l", is_flag=True, help="List all found licenses")
+@click.option("--print", "-p", is_flag=True, help="Print the found license file.")
+@click.option("--search", "-s", is_flag=True, help="Search licenses and shows a list.")
+@click.option("--list", "-l", is_flag=True, help="List all found licenses.")
 @click.version_option(__version__)
 @click.argument("license_id", metavar="<license id>", nargs=1, required=False)
 def main(print, search, list, license_id):
