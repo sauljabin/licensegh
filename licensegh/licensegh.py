@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 
 import git
 import yaml
@@ -20,6 +21,9 @@ class Licensegh:
 
     def load_licenses(self):
         for dirpath, dirnames, filenames in os.walk(self.repository.licenses_path):
+            filenames = [
+                filename for filename in filenames if filename.endswith(".txt")
+            ]
             filenames.sort()
             for license_path in filenames:
                 self.licenses.append(License(os.path.join(dirpath, license_path)))
@@ -81,6 +85,9 @@ class Licensegh:
         else:
             licenses[0].load()
             licenses[0].save()
+
+    def reset_repository(self):
+        self.repository.remove()
 
 
 class License:
@@ -148,3 +155,6 @@ class TemplatesRepository:
             repo.remotes.origin.pull()
         else:
             git.Repo.clone_from(self.remote, self.path)
+
+    def remove(self):
+        shutil.rmtree(self.path)

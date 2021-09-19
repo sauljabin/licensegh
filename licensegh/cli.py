@@ -8,7 +8,11 @@ class Cli:
     def __init__(self):
         self.licensegh = Licensegh()
 
-    def run(self, print, search, list, license_id):
+    def run(self, print, search, list, reset, license_id):
+        if reset:
+            self.licensegh.reset_repository()
+            return
+
         self.licensegh.init()
 
         if list:
@@ -35,11 +39,16 @@ class Cli:
 @click.option("--print", "-p", is_flag=True, help="Print the found license file.")
 @click.option("--search", "-s", is_flag=True, help="Search licenses and shows a list.")
 @click.option("--list", "-l", is_flag=True, help="List all found licenses.")
+@click.option("--reset", is_flag=True, help="Reset the template source.")
 @click.version_option(__version__)
 @click.argument("license_id", metavar="<license id>", nargs=1, required=False)
-def main(print, search, list, license_id):
+def main(print, search, list, reset, license_id):
+    """
+    licensegh is a command line tool to search and generate LICENSE files.
+    Example: licensegh mit.
+    """
     cli = Cli()
-    cli.run(print, search, list, license_id)
+    cli.run(print, search, list, reset, license_id)
 
 
 if __name__ == "__main__":

@@ -161,7 +161,7 @@ class TestLicensegh(unittest.TestCase):
     def test_it_loads_all_template_list_when_init(self, walk_mock):
         walk_mock.return_value = [
             ("/foo", ["bar"], ["baz.txt"]),
-            ("/foo/bar", [], ["spam.txt", "eggs.txt"]),
+            ("/foo/bar", [], ["spam.txt", "eggs.txt", "test.doc", faker.file_name()]),
         ]
         self.licensegh.repository.licenses_path = faker.file_path()
 
@@ -305,6 +305,11 @@ class TestLicensegh(unittest.TestCase):
 
         console_mock.print.assert_called_once_with("[red]License not found[red]")
 
+    def test_remove_repository(self):
+        self.licensegh.reset_repository()
+
+        self.licensegh.repository.remove.assert_called_once()
+
 
 class TestTemplateRepository(unittest.TestCase):
     def setUp(self):
@@ -346,3 +351,9 @@ class TestTemplateRepository(unittest.TestCase):
         self.templates_repository.init()
 
         repo_mock.remotes.origin.pull.assert_called()
+
+    @patch("licensegh.licensegh.shutil")
+    def test_remove_repository(self, shutil_mock):
+        self.templates_repository.remove()
+
+        shutil_mock.rmtree.assert_called_with(self.path)

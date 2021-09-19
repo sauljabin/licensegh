@@ -31,6 +31,11 @@ Help:
 licensegh -h
 ```
 
+Version:
+```sh
+licensegh --version
+```
+
 List all licenses:
 ```sh
 licensegh -l
@@ -44,6 +49,11 @@ licensegh -s
 Print a license: 
 ```sh
 licensegh -p
+```
+
+Reset github template repository:
+```sh
+licensegh --reset
 ```
 
 Save a license:
