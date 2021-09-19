@@ -10,8 +10,6 @@ def main():
             "run",
             "coverage",
             "run",
-            "--source",
-            "licensegh",
             "-m",
             "unittest",
             "-v",
