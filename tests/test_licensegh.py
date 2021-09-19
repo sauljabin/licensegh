@@ -4,7 +4,6 @@ from unittest.mock import MagicMock, call, mock_open, patch
 
 from faker import Faker
 
-from licensegh import __version__
 from licensegh.licensegh import License, Licensegh, TemplatesRepository
 
 faker = Faker()
@@ -150,9 +149,6 @@ class TestLicensegh(unittest.TestCase):
     def setUp(self):
         self.licensegh = Licensegh()
         self.licensegh.repository = MagicMock()
-
-    def test_version(self):
-        self.assertEqual(__version__, "0.1.1")
 
     def test_it_starts_templates_repository(self):
         self.licensegh.repository.licenses_path = faker.file_path()
