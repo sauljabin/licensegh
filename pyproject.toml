@@ -28,12 +28,12 @@ PyYAML = "^5.4.1"
 black = "^21.9b0"
 isort = "^5.9.3"
 bandit = "^1.7.0"
-flake8 = "^3.9.2"
 tox = "^3.24.4"
 unittest = "^0.0"
 Faker = "^8.13.2"
 tox-gh-actions = "^2.7.0"
 coverage = "^5.5"
+pyproject-flake8 = "^0.0.1-alpha.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -61,6 +61,11 @@ commands =
 
 [tool.isort]
 profile = "black"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203,"
+max-complexity = 10
 
 [tool.poetry.scripts]
 licensegh = "licensegh.cli:main"
