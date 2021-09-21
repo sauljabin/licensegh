@@ -161,7 +161,7 @@ class TestLicensegh(unittest.TestCase):
     def test_it_loads_all_template_list_when_init(self, walk_mock):
         walk_mock.return_value = [
             ("/foo", ["bar"], ["baz.txt"]),
-            ("/foo/bar", [], ["spam.txt", "eggs.txt", "test.doc", faker.file_name()]),
+            ("/foo/bar", [], ["spam.txt", "eggs.txt", "test.doc", "test.json"]),
         ]
         self.licensegh.repository.licenses_path = faker.file_path()
 
