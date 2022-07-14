@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "licensegh"
-version = "0.1.6"
+version = "1.0.0"
 description = "licensegh is a command line tool that generates a license file for a project from the github open source lincese templates"
 authors = ["Saúl Piña <sauljabin@gmail.com>"]
 license = "MIT"
@@ -20,12 +20,12 @@ include = [
 [tool.poetry.dependencies]
 python = "^3.7"
 click = "^8.0.1"
-rich = "^10.9.0"
+rich = "^12.4.4"
 GitPython = "^3.1.23"
 PyYAML = "^5.4.1"
 
 [tool.poetry.dev-dependencies]
-black = "^21.9b0"
+black = "^22.3.0"
 isort = "^5.9.3"
 bandit = "^1.7.0"
 tox = "^3.24.4"
@@ -38,26 +38,6 @@ pyproject-flake8 = "^0.0.1-alpha.2"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-isolated_build = true
-skipsdist = true
-envlist = py37, py38, py39
-
-[gh-actions]
-python =
-    3.7: py37
-    3.8: py38
-    3.9: py39
-
-[testenv]
-whitelist_externals = poetry
-commands =
-    poetry install -q
-    poetry run python -m unittest -v
-"""
 
 [tool.isort]
 profile = "black"

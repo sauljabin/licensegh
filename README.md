@@ -3,7 +3,7 @@
 <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/-python-success?logo=python&logoColor=white"></a>
 <a href="https://github.com/sauljabin/licensegh"><img alt="GitHub" src="https://img.shields.io/badge/status-active-brightgreen"></a>
 <a href="https://github.com/sauljabin/licensegh/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/sauljabin/licensegh"></a>
-<a href="https://github.com/sauljabin/licensegh/actions"><img alt="GitHub Actions" src="https://img.shields.io/github/checks-status/sauljabin/licensegh/main?label=tests"></a>
+<a href="https://github.com/sauljabin/licensegh/actions"><img alt="GitHub Actions" src="https://img.shields.io/github/workflow/status/sauljabin/licensegh/CI?label=tests"></a>
 <a href="https://app.codecov.io/gh/sauljabin/licensegh"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/sauljabin/licensegh"></a>
 <a href="https://pypi.org/project/licensegh"><img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/licensegh"></a>
 <a href="https://pypi.org/project/licensegh"><img alt="Version" src="https://img.shields.io/pypi/v/licensegh"></a>
@@ -78,14 +78,6 @@ poetry install
 Running unit tests:
 ```sh
 poetry run python -m scripts.tests
-```
-
-Running multi version tests (`3.7`, `3.8`, `3.9`):
-
-> Make sure you have `python3.7`, `python3.8`, `python3.9` aliases installed
-
-```sh
-poetry run python -m scripts.multi-version-tests
 ```
 
 Applying code styles:
