@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "licensegh"
-version = "1.0.0"
+version = "1.0.1"
 description = "licensegh is a command line tool that generates a license file for a project from the github open source lincese templates"
 authors = ["Saúl Piña <sauljabin@gmail.com>"]
 license = "MIT"
