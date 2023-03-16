@@ -28,6 +28,8 @@ pip install --upgrade licensegh
 
 ## Usage
 
+> Alias lgh
+
 Help:
 ```sh
 licensegh -h
@@ -98,4 +100,17 @@ poetry run python -m scripts.tests-coverage
 Running cli using `poetry`:
 ```sh
 poetry run licensegh
+```
+
+## Release a new version
+
+> Check https://python-poetry.org/docs/cli/#version
+
+```shell
+poetry version <major|minor|patch>
+git add -A
+git commit -m "bumping version to $(poetry version -s)"
+git tag $(poetry version -s)
+git push origin main
+git push --tags
 ```

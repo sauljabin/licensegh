@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "licensegh"
-version = "1.0.1"
+version = "1.0.2"
 description = "licensegh is a command line tool that generates a license file for a project from the github open source lincese templates"
 authors = ["Saúl Piña <sauljabin@gmail.com>"]
 license = "MIT"
@@ -18,20 +18,20 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-click = "^8.0.1"
-rich = "^12.4.4"
-GitPython = "^3.1.23"
-PyYAML = "^5.4.1"
+python = "^3.10"
+click = "^8"
+rich = "^13"
+GitPython = "^3"
+PyYAML = "^5"
 
 [tool.poetry.dev-dependencies]
-black = "^22.3.0"
-isort = "^5.9.3"
-bandit = "^1.7.0"
+black = "^23"
+isort = "^5"
+bandit = "^1"
 unittest = "^0.0"
 Faker = "^8.13.2"
-coverage = {extras = ["toml"], version = "^5.5"}
-pyproject-flake8 = "^0.0.1-alpha.2"
+coverage = {extras = ["toml"], version = "^7"}
+flake8 = "^6"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -39,11 +39,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 profile = "black"
-
-[tool.flake8]
-max-line-length = 88
-extend-ignore = "E203,"
-max-complexity = 10
 
 [tool.coverage.run]
 source = ["licensegh"]
@@ -55,3 +50,4 @@ exclude_lines = ['if __name__ == "__main__":']
 
 [tool.poetry.scripts]
 licensegh = "licensegh.cli:main"
+lgh = "licensegh.cli:main"
