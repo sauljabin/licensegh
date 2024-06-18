@@ -18,12 +18,12 @@
 
 Install with pip:
 ```sh
-pip install licensegh
+pipx install licensegh
 ```
 
 Upgrade with pip:
 ```sh
-pip install --upgrade licensegh
+pipx upgrade licensegh
 ```
 
 ## Usage
@@ -69,7 +69,7 @@ licensegh mit
 
 Installing poetry:
 ```sh
-pip install poetry
+pipx install poetry
 ```
 
 Installing development dependencies:
