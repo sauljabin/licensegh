@@ -60,12 +60,12 @@ licensegh -l
 
 Search licenses:
 ```sh
-licensegh -s
+licensegh -s <license id>
 ```
 
 Print a license:
 ```sh
-licensegh -p
+licensegh -p <license id>
 ```
 
 Reset github template repository:
@@ -75,7 +75,7 @@ licensegh --reset
 
 Save a license:
 ```sh
-licensegh mit
+licensegh <license id>
 ```
 
 ## Development
