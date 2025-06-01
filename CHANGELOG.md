@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-06-01
+
 ### Fixed
 
 - Update dependencies version
 - Remove banner when printing license
+
+[Unreleased]: https://github.com/sauljabin/licensegh/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/sauljabin/licensegh/releases/tag/v1.1.0
