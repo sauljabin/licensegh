@@ -1,43 +1,53 @@
-[tool.poetry]
+[project]
 name = "licensegh"
 version = "1.0.8"
 description = "licensegh is a command line tool that generates a license file for a project from the github open source lincese templates"
-authors = ["Saúl Piña <sauljabin@gmail.com>"]
-license = "MIT"
+authors = [{ name = "Saúl Piña", email = "sauljabin@gmail.com" }]
+license = { text = "MIT" }
 readme = "README.md"
-homepage = "https://github.com/sauljabin/licensegh"
-repository = "https://github.com/sauljabin/licensegh"
 keywords = ["lincese", "choosealicense", "licensegh"]
 classifiers = [
+    "License :: OSI Approved :: MIT License",
     "Environment :: Console",
     "Operating System :: MacOS",
-    "Operating System :: Unix"
+    "Operating System :: Unix",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
-include = [
-    "LICENSE",
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "click>=8",
+    "rich>=14",
+    "gitpython>=3",
+    "pyyaml>=6",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-click = "^8"
-rich = "^13"
-GitPython = "^3"
-PyYAML = "^6"
+[project.urls]
+homepage = "https://github.com/sauljabin/licensegh"
+repository = "https://github.com/sauljabin/licensegh"
 
-[tool.poetry.dev-dependencies]
+[project.scripts]
+licensegh = "licensegh.cli:main"
+lgh = "licensegh.cli:main"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
 black = "*"
-isort = "*"
-bandit = "*"
-Faker = "*"
-coverage = {extras = ["toml"], version = "*"}
-flake8 = "*"
+coverage = { extras = ["toml"], version = "*" }
+pre-commit = "*"
+faker = "*"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.isort]
-profile = "black"
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
 
 [tool.coverage.run]
 source = ["licensegh"]
@@ -46,7 +56,3 @@ omit = ["*tests/*", "*scripts/*", "*__init__.py", "licensegh/__main__.py"]
 
 [tool.coverage.report]
 exclude_lines = ['if __name__ == "__main__":']
-
-[tool.poetry.scripts]
-licensegh = "licensegh.cli:main"
-lgh = "licensegh.cli:main"

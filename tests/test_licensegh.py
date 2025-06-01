@@ -62,18 +62,10 @@ class TestLicense(unittest.TestCase):
         open_mock.assert_called_with(self.license.path, "r")
 
     @patch("builtins.open", new_callable=mock_open, read_data=license_text)
-    def test_license_loads_list_of_arguments(self, open_mock):
-        self.license.load()
-
-        self.assertCountEqual(self.license.arguments, ["year", "fullname"])
-
-    @patch("builtins.open", new_callable=mock_open, read_data=license_text)
     def test_license_get_text_from_file(self, open_mock):
         self.license.load()
 
-        self.assertEqual(
-            self.license.text, "MIT License\n\nCopyright (c) [year] [fullname]"
-        )
+        self.assertEqual(self.license.text, "MIT License\n\nCopyright (c) [year] [fullname]")
 
     @patch("builtins.open", new_callable=mock_open, read_data=license_text)
     def test_license_get_yaml_data_from_file(self, open_mock):
@@ -82,36 +74,12 @@ class TestLicense(unittest.TestCase):
         self.assertEqual(self.license.name, "MIT License")
         self.assertEqual(self.license.description, "The description.")
 
-    @patch(
-        "builtins.open", new_callable=mock_open, read_data=license_text_with_more_dashes
-    )
+    @patch("builtins.open", new_callable=mock_open, read_data=license_text_with_more_dashes)
     def test_license_get_yaml_data_from_file_with_multiple_dashes(self, open_mock):
         self.license.load()
 
         self.assertEqual(self.license.name, "SIL Open Font License 1.1")
         self.assertEqual(self.license.description, "The description.")
-
-    @patch("licensegh.licensegh.Console")
-    def test_print_license_text(self, console_class_mock):
-        self.license.text = faker.text()
-
-        console_mock = MagicMock()
-        console_class_mock.return_value = console_mock
-
-        self.license.print()
-
-        console_mock.print.assert_called_with(self.license.text)
-
-    @patch("licensegh.licensegh.Console")
-    def test_scape_arguments_when_printing_license_text(self, console_class_mock):
-        self.license.text = "text [arg1] [arg2]"
-
-        console_mock = MagicMock()
-        console_class_mock.return_value = console_mock
-
-        self.license.print()
-
-        console_mock.print.assert_called_with(r"text \[arg1] \[arg2]")
 
     @patch("builtins.open", new_callable=mock_open)
     def test_save_license_text(self, console_class_mock):
@@ -121,28 +89,6 @@ class TestLicense(unittest.TestCase):
 
         console_class_mock.assert_called_once_with("LICENSE", "w")
         console_class_mock.return_value.write.assert_called_once_with(self.license.text)
-
-    @patch("licensegh.licensegh.Prompt")
-    @patch("builtins.open", new_callable=mock_open)
-    def test_save_license_text_with_arguments(
-        self, console_class_mock, prompt_class_mock
-    ):
-        self.license.text = license_text
-        self.license.arguments = ["year", "fullname"]
-        prompt_class_mock.ask.side_effect = ["2020", "John Doe"]
-
-        self.license.save()
-
-        expected = [
-            call("[magenta]Enter argument[magenta] [cyan]year[cyan]"),
-            call("[magenta]Enter argument[magenta] [cyan]fullname[cyan]"),
-        ]
-        self.assertEqual(prompt_class_mock.ask.call_args_list, expected)
-        console_class_mock.return_value.write.assert_called_once_with(
-            self.license.text.replace("[year]", "2020").replace(
-                "[fullname]", "John Doe"
-            )
-        )
 
 
 class TestLicensegh(unittest.TestCase):
@@ -266,9 +212,7 @@ class TestLicensegh(unittest.TestCase):
 
     @patch("licensegh.licensegh.Console")
     @patch("licensegh.licensegh.Table")
-    def test_it_prints_table_with_description(
-        self, table_class_mock, console_class_mock
-    ):
+    def test_it_prints_table_with_description(self, table_class_mock, console_class_mock):
         table_mock = MagicMock()
         table_class_mock.return_value = table_mock
 

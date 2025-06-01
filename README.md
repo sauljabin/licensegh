@@ -1,5 +1,6 @@
 # licensegh
 
+<p align="center">
 <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/-python-success?logo=python&logoColor=white"></a>
 <a href="https://github.com/sauljabin/licensegh"><img alt="GitHub" src="https://img.shields.io/badge/status-active-brightgreen"></a>
 <a href="https://github.com/sauljabin/licensegh/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/sauljabin/licensegh"></a>
@@ -9,10 +10,22 @@
 <a href="https://pypi.org/project/licensegh"><img alt="Version" src="https://img.shields.io/pypi/v/licensegh"></a>
 <a href="https://libraries.io/pypi/licensegh"><img alt="Dependencies" src="https://img.shields.io/librariesio/release/pypi/licensegh"></a>
 <a href="https://pypi.org/project/licensegh"><img alt="Platform" src="https://img.shields.io/badge/platform-linux%20%7C%20osx-blueviolet"></a>
+</p>
 
 `licensegh` is a command line tool that generates a `LICENSE` file for a project from the [github license templates repository](https://github.com/github/choosealicense.com/tree/gh-pages/_licenses).
 
-![https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/options.png](https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/options.png)
+## Screenshots
+
+<table>
+  <tr>
+    <td>
+        <img  src="https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/search.png">
+    </td>
+    <td>
+        <img src="https://raw.githubusercontent.com/sauljabin/licensegh/main/screenshots/print.png">
+    </td>
+  </tr>
+</table>
 
 ## Installation
 
@@ -50,7 +63,7 @@ Search licenses:
 licensegh -s
 ```
 
-Print a license: 
+Print a license:
 ```sh
 licensegh -p
 ```
@@ -94,7 +107,7 @@ poetry run python -m scripts.analyze
 
 Running code coverage:
 ```sh
-poetry run python -m scripts.tests-coverage
+poetry run python -m scripts.coverage
 ```
 
 Running cli using `poetry`:
@@ -107,10 +120,6 @@ poetry run licensegh
 > Check https://python-poetry.org/docs/cli/#version
 
 ```shell
-poetry version <major|minor|patch>
-git add -A
-git commit -m "new version: $(poetry version -s)"
-git tag $(poetry version -s)
-git push origin main
-git push --tags
+poetry run python -m scripts.bump --help
+poetry run python -m scripts.bump <major|minor|patch>
 ```

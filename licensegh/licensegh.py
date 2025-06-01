@@ -6,7 +6,6 @@ import git
 import yaml
 from rich import box
 from rich.console import Console
-from rich.prompt import Prompt
 from rich.table import Table
 
 
@@ -21,9 +20,7 @@ class Licensegh:
 
     def load_licenses(self):
         for dirpath, dirnames, filenames in os.walk(self.repository.licenses_path):
-            filenames = [
-                filename for filename in filenames if filename.endswith(".txt")
-            ]
+            filenames = [filename for filename in filenames if filename.endswith(".txt")]
             filenames.sort()
             for license_path in filenames:
                 self.licenses.append(License(os.path.join(dirpath, license_path)))
@@ -99,7 +96,6 @@ class License:
         self.description = ""
         self.name = ""
         self.text = ""
-        self.arguments = []
 
     def load(self):
         with open(self.path, "r") as file:
@@ -114,30 +110,13 @@ class License:
             self.description = metadata["description"].strip()
             self.name = metadata["title"].strip()
             self.text = file_parts["text"].strip()
-            self.arguments = list(set(re.findall(r"\[([a-z]+)\]", self.text)))
 
     def print(self):
-        console = Console()
-        console.print(
-            "[green]Name:[green]\t[magenta bold]{}[magenta bold]".format(self.name)
-        )
-        console.print(
-            "[green]Id:[green]\t[magenta bold]{}[magenta bold]".format(self.id)
-        )
-        console.rule()
-        console.print(self.text.replace("[", r"\["))
+        print(self.text)
 
     def save(self):
-        text_to_save = self.text
-
-        for argument in self.arguments:
-            value = Prompt.ask(
-                f"[magenta]Enter argument[magenta] [cyan]{argument}[cyan]"
-            )
-            text_to_save = text_to_save.replace(f"[{argument}]", value)
-
         with open("LICENSE", "w") as file:
-            file.write(text_to_save)
+            file.write(self.text)
 
     def __eq__(self, o):
         return self.id == o.id
