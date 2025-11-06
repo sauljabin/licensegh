@@ -2,7 +2,15 @@
   "repository": "https://github.com/sauljabin/licensegh",
   "versions": [
     {
-      "version": "Unreleased"
+      "version": "Unreleased",
+      "changes": [
+        {
+          "type": "Fixed",
+          "entries": [
+            "Update python"
+          ]
+        }
+      ]
     },
     {
       "version": "1.1.0",
