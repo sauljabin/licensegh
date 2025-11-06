@@ -1,6 +1,6 @@
 [project]
 name = "licensegh"
-version = "1.1.0"
+version = "1.1.1"
 description = "licensegh is a command line tool that generates a license file for a project from the github open source lincese templates"
 authors = [{ name = "Saúl Piña", email = "sauljabin@gmail.com" }]
 license = { text = "MIT" }
